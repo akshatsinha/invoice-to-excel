@@ -1,0 +1,30 @@
+extends ../base
+
+block vars
+    - var title = 'Register'
+
+block body
+    block content
+        .container
+            if error
+                p ERROR: #{error}
+
+            form.form-signin(action="/register", method="post")
+                h2.form-signin-heading Registration
+                input(type='hidden', name='_csrf', value=csrfToken)
+                div
+                    input.input-block-level(type="text", name="fname", placeholder="First Name")
+
+                div
+                    input.input-block-level(type="text", name="lname", placeholder="Last Name")
+
+                div
+                    input.input-block-level(type="text", name="username", placeholder="Username")
+
+                div
+                    input.input-block-level(type="password", name="password", placeholder="Password")
+
+                div
+                    input.input-block-level(type="text", name="email", placeholder="Email")
+
+                button.btn.btn-large.btn-primary(type="submit") Register

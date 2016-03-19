@@ -1,0 +1,29 @@
+{
+  "name": "invoice-to-excel",
+  "version": "1.0.0",
+  "description": "Capture information from an invoice and generate detailed excel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshatsinha/invoice-to-excel.git"
+  },
+  "author": "Akshat Sinha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshatsinha/invoice-to-excel/issues"
+  },
+  "homepage": "https://github.com/akshatsinha/invoice-to-excel#readme",
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "client-sessions": "^0.7.0",
+    "csurf": "^1.8.3",
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "mongoose": "^4.4.8",
+    "morgan": "^1.7.0"
+  }
+}
