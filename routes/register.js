@@ -1,50 +1,69 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs')
+var morgan = require('morgan')
+var passport = require('passport')
+var LocalStrategy = require('passport-local')
 
 var db = require('../models/db')
 var UserModel = require('../models/User')
 var User = db.model('User')
-
-
 var app = express();
 
-
 // middleware
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan('[:date[iso]] :method :url :status'))
+
+var createHash = function(password){
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+}
+
+passport.use('register', new LocalStrategy({passReqToCallback : true},
+    function(req, username, password, done) {
+        findOrCreateUser = function() {
+            User.findOne({'username':username}, function(err, user) {
+            if (err) {
+                console.log('Error in SignUp: ' + err);
+                return done(err);
+            }
+            if (user) {
+                console.log('User already exists')
+                return done(null, false, req.flash('message', 'User Already Exists'))
+            } else {
+                var newUser = new User();
+                newUser.username = username;
+                newUser.password = createHash(password);
+                newUser.email = req.body.email;
+                newUser.fname = req.body.fname;
+                newUser.lname = req.body.lname;
+
+                newUser.save(function(err) {
+                    if (err) {
+                        console.log('Error in Saving user: ' + err);
+                        throw err;
+                    }
+                    console.log('User Registration succesful: ' + username);
+                    return done(null, newUser);
+                });
+            }
+        })
+    }
+    // Delay the execution of findOrCreateUser and execute
+    // the method in the next tick of the event loop
+    process.nextTick(findOrCreateUser)
+}))
+
 
 // Go to the register page
 router.get('/', function(req, res) {
-    res.render('register/index.jade', { csrfToken: req.csrfToken() })
-});
-
-// Get the register form data
-router.post('/', function(req, res) {
-    var user = new User({
-        fname: req.body.fname,
-        lname: req.body.lname,
-        username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
-        email: req.body.email
-    })
-
-    user.save(function(err) {
-        if (err) {
-            console.log(err)
-            var error = 'An error occurred. Please try again!'
-            if (err.code === 11000) {
-                error = 'Username already exists.'
-            }
-            res.render('register.jade', {error: error})
-        } else {
-            console.log('here');
-            res.redirect('/login')
-        }
-    })
-
+    res.render('register/index.jade', { csrfToken: req.csrfToken(), message: req.flash('message') })
 })
 
+// Get the register form data
+router.post('/', passport.authenticate('register', {
+    successRedirect: '/login',
+    failureRedirect: '/register',
+    failureFlash : true
+}))
 
-module.exports = router;
+module.exports = router

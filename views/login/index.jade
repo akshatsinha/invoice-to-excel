@@ -9,8 +9,8 @@ block head
 block body
     block content
         .container
-            if error
-                p ERROR: #{error}
+            if message
+                p #{message}
 
             form.form-signin(action="/login", method="post")
                 h2.form-signin-heading Please sign in

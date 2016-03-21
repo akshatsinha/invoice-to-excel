@@ -6,8 +6,8 @@ block vars
 block body
     block content
         .container
-            if error
-                p ERROR: #{error}
+            if message
+                p #{message}
 
             form.form-signin(action="/register", method="post")
                 h2.form-signin-heading Registration

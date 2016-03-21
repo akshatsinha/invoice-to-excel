@@ -9,7 +9,8 @@ var logoutRoutes = require('./routes/logout')
 var session = require('client-sessions')
 var auth = require('./lib/auth')
 var csrf = require('csurf')
-
+var passport = require('passport')
+const flash = require('connect-flash');
 
 var app = express();
 app.set('view engine', 'jade');
@@ -27,6 +28,12 @@ app.use(session({
 }))
 app.use(csrf())
 app.use(auth.updateUserObjIfLoggedIn) // removes password from going back to the client
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
