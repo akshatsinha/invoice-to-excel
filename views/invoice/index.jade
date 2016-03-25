@@ -1,0 +1,10 @@
+extends ../base
+
+block vars
+    - var title = 'Invoices'
+
+block body
+    mixin header('invoices')
+    block content
+        h2 Invoices
+        p #{user}

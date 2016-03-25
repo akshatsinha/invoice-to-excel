@@ -1,9 +1,14 @@
-block vars 
+include shared/header.jade
+
+block vars
 doctype html
 html
   head
     title I2E | #{title}
     | <link href="/css/shared/bootstrap.css" rel="stylesheet" type="text/css">
     block head
-  body
+  body(ng-app="I2E")
     block body
+    block shared
+        script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js")
+        script(src="/js/main.js")

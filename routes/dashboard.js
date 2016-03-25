@@ -17,7 +17,6 @@ app.use(morgan('[:date[iso]] :method :url :status'))
 // Go to the dashboard page
 // User will come here only after satisfying the requireLogin middleware
 router.get('/', function(req, res) {
-    res.locals.user = req.user // req.user is set in auth.updateUserObjIfLoggedIn
     res.render('dashboard/index.jade')
 });
 

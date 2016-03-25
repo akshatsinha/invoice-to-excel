@@ -22,23 +22,22 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(session({
     cookieName: 'session',
     secret: 'fegregregreabhrehajt34r4fr',
-    duration: 30 * 60 * 1000,
+//    duration: 48 * 60 * 60 * 1000 // 2 days
+    duration: 4 * 30 * 24 * 60 * 60 * 1000, // 4 months
     activeDuration: 5 * 60 * 1000,
     httpOnly: true
 }))
-app.use(csrf())
-app.use(auth.updateUserObjIfLoggedIn) // removes password from going back to the client
-app.use(flash());
 
+app.use(csrf())
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 
 app.use('/login', loginRoutes)
 app.use('/register', registerRoutes)
 app.use('/dashboard', auth.requireLogin, dashboardRoutes)
-app.use('/invoice', auth.requireLogin, invoiceRoutes)
+app.use('/invoices', auth.requireLogin, invoiceRoutes)
 app.use('/logout', logoutRoutes)
 
 // Go to the index page

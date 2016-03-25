@@ -1,9 +1,10 @@
 extends ../base
 
 block vars
-    - var title = 'Register'
+    - var title = 'Dashboard'
 
 block body
+    mixin header('dashboard')
     block content
         h2 Dashboard
         #{user}
