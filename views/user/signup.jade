@@ -1,0 +1,39 @@
+extends ../base
+
+block vars
+    - var title = 'Register'
+
+append header
+    mixin header('signup')
+
+block body
+    block content
+        .container
+
+            .col-md-4.center-block(style="float: none;")
+
+                if message.length > 0
+                    .alert.alert-dismissible.alert-danger #{message}
+
+                form.col-md-12(action="/register", method="post")
+                    input(type='hidden', name='_csrf', value=csrfToken)
+
+                    .form-group
+                        input.form-control.input-lg(type="text", name="fname", placeholder="First Name")
+
+                    .form-group
+                        input.form-control.input-lg(type="text", name="lname", placeholder="Last Name")
+
+                    .form-group
+                        input.form-control.input-lg(type="text", name="username", placeholder="Username")
+
+                    .form-group
+                        input.form-control.input-lg(type="password", name="password", placeholder="Password")
+
+                    .form-group
+                        input.form-control.input-lg(type="text", name="email", placeholder="Email")
+
+                    .form-group
+                        button.btn.btn-primary.btn-lg.btn-block(type="submit") SIGN UP
+                        span(class="pull-right")
+                            a(href="/login") Login

@@ -1,16 +1,25 @@
 mixin header(active_tab)
-    if user
-        link(href="/css/shared/header.css", rel="stylesheet")
-        div(style="display: block; height: 50px;")
-            div(style="float: left") #{user.fname} #{user.lname}
-            ul(style="float: right")
-                each tab in ['dashboard', 'invoices', 'logout']
-                    if tab == active_tab
-                        li
-                            a(href="/" + tab, style="color:red") #{tab}&nbsp;
-                    else
-                        li
-                            a(href="/" + tab, style="color:gray") #{tab}&nbsp;
+    nav.navbar.navbar-default
+        div.container-fluid
+            div.navbar-header
+                a.navbar-brand(href="javascript:void(0)") Invoice2Excel
 
-    else
-        p User is not logged in!
+            if user
+                ul.nav.navbar-nav.navbar-right
+                    each tab in ['dashboard', 'invoices', 'logout']
+                        if tab == active_tab
+                            li.active
+                                a(href="/" + tab) #{tab.toUpperCase()}
+                        else
+                            li
+                                a(href="/" + tab) #{tab.toUpperCase()}
+
+            else
+                ul.nav.navbar-nav.navbar-right
+                    each tab in ['login', 'signup']
+                        if tab == active_tab
+                            li.active
+                                a(href="/" + tab) #{tab.toUpperCase()}
+                        else
+                            li
+                                a(href="/" + tab) #{tab.toUpperCase()}

@@ -3,8 +3,28 @@ extends ../base
 block vars
     - var title = 'Invoices'
 
-block body
+block header
     mixin header('invoices')
+
+block body
     block content
-        h2 Invoices
-        p #{user}
+        .container
+            .row
+                .col-sm-4
+                    a.btn.btn-primary.btn-lg + Add Invoice
+
+            .row
+                .col-sm-12
+                    table.table.table-striped.table-hover
+                        thead
+                            tr
+                                th #
+                                th Column heading
+                                th Column heading
+                                th Column heading
+                        tbody
+                            tr
+                                td 1
+                                td 11
+                                td 111
+                                td 1111

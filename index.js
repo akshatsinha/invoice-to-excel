@@ -6,8 +6,10 @@ var registerRoutes = require('./routes/register')
 var dashboardRoutes = require('./routes/dashboard')
 var invoiceRoutes = require('./routes/invoice')
 var logoutRoutes = require('./routes/logout')
+var baccountRoutes = require('./routes/baccounts')
 var session = require('client-sessions')
 var auth = require('./lib/auth')
+var utils = require('./lib/utils')
 var csrf = require('csurf')
 var passport = require('passport')
 const flash = require('connect-flash');
@@ -35,9 +37,10 @@ app.use(passport.session());
 
 
 app.use('/login', loginRoutes)
-app.use('/register', registerRoutes)
+app.use('/signup', registerRoutes)
 app.use('/dashboard', auth.requireLogin, dashboardRoutes)
 app.use('/invoices', auth.requireLogin, invoiceRoutes)
+app.use('/baccounts', auth.requireLogin, baccountRoutes)
 app.use('/logout', logoutRoutes)
 
 // Go to the index page

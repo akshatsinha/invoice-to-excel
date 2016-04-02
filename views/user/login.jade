@@ -1,0 +1,33 @@
+extends ../base
+
+block vars
+    - var title = 'Login'
+
+block head
+    link(rel='stylesheet', href='css/login.css')
+
+append header
+    mixin header('login')
+
+block body
+    block content
+        .container
+
+            .col-md-4.center-block(style="float: none;")
+
+                if message.length > 0
+                    .alert.alert-dismissible.alert-danger #{message}
+
+                form.col-md-12(action="/login", method="post")
+                    input(type='hidden', name='_csrf', value=csrfToken)
+
+                    .form-group
+                        input.form-control.input-lg(type="text", name="username", placeholder="Username")
+
+                    .form-group
+                        input.form-control.input-lg(type="password", name="password", placeholder="Password")
+
+                    .form-group
+                        button.btn.btn-primary.btn-lg.btn-block(type="submit") SIGN IN
+                        span(class="pull-right")
+                            a(href="/signup") New Registration

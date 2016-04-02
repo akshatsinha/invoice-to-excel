@@ -50,7 +50,7 @@ passport.use('login', new LocalStrategy({passReqToCallback : true},
 
 // Go to the login page
 router.get('/', function(req, res) {
-    res.render('login/index.jade', { csrfToken: req.csrfToken(), message: req.flash('message') })
+    res.render('user/login.jade', { csrfToken: req.csrfToken(), message: req.flash('message') })
 });
 
 // User submits the login form

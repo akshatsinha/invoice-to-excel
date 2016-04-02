@@ -3,9 +3,8 @@ extends base
 block vars
     - var title = 'Home'
 
+append header
+    mixin header('home')
+
+
 block body
-    h1 SPLASH SCREEN HERE
-    p
-        a(href="/login") Login
-        br
-        a(href="/register") Register

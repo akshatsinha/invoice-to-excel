@@ -3,8 +3,26 @@ extends ../base
 block vars
     - var title = 'Dashboard'
 
-block body
+append header
     mixin header('dashboard')
+
+block body
     block content
-        h2 Dashboard
         #{user}
+
+        br
+        br
+        br
+
+        .container
+            .row
+
+                .col-sm-4
+                    a.btn.btn-default.btn-lg.btn-block(href="/baccounts") <br>MANAGE BUSINESS ACCOUNTS<br><br>
+
+                .col-sm-4
+                    a.btn.btn-default.btn-lg.btn-block(href="/invoices") <br>INVOICES<br><br>
+
+                .col-sm-4
+                    a.btn.btn-default.btn-lg.btn-block(href="/profile") <br>PROFILE<br><br>
+

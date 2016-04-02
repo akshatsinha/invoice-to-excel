@@ -1,0 +1,51 @@
+extends ../base
+
+block vars
+    - var title = 'Business Accounts'
+
+
+append header
+    mixin header('baccounts')
+
+block body
+    h2 Business Accounts
+    #{user}
+
+    div(ng-controller="BAcctCtrl as bacct")
+        a(href="javascript:void(0)", ng-click="bacct.showCreateForm()") + Create Business Account
+
+        div(ng-if="bacct.showCreateBusinessForm")
+            .container
+                if message
+                    p #{message}
+
+                form.form-signin(action="/baccounts/create", method="post")
+                    h2.form-signin-heading Registration
+                    input(type='hidden', name='_csrf', value=csrfToken)
+                    div
+                        input.input-block-level(type="text", name="bname", placeholder="Business Name")
+
+                    div
+                        input.input-block-level(type="text", name="baddress_first", placeholder="Address # 1")
+
+                    div
+                        input.input-block-level(type="text", name="baddress_second", placeholder="Address # 2")
+
+                    div
+                        input.input-block-level(type="text", name="baddress_city", placeholder="City")
+
+                    div
+                        input.input-block-level(type="text", name="baddress_state", placeholder="State")
+
+                    div
+                        input.input-block-level(type="text", name="baddress_country", placeholder="Country")
+
+                    button.btn.btn-large.btn-primary(type="submit") Register
+
+
+        div()
+
+block footer
+
+append scripts
+    script(src="/js/baccounts.js")

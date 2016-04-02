@@ -56,7 +56,7 @@ passport.use('register', new LocalStrategy({passReqToCallback : true},
 
 // Go to the register page
 router.get('/', function(req, res) {
-    res.render('register/index.jade', { csrfToken: req.csrfToken(), message: req.flash('message') })
+    res.render('user/signup.jade', { csrfToken: req.csrfToken(), message: req.flash('message') })
 })
 
 // Get the register form data

@@ -8,7 +8,9 @@ html
     | <link href="/css/shared/bootstrap.css" rel="stylesheet" type="text/css">
     block head
   body(ng-app="I2E")
+    block header
     block body
-    block shared
-        script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js")
+    block footer
+    block scripts
+        script(src="/js/vendor/angular.1.4.5.js")
         script(src="/js/main.js")
