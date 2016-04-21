@@ -3,47 +3,126 @@ extends ../base
 block vars
     - var title = 'Business Accounts'
 
+block head
+    link(rel='stylesheet', href='/css/baccounts.css')
 
 append header
     mixin header('baccounts')
 
 block body
-    h2 Business Accounts
-    #{user}
+    .container(ng-controller="BAcctCtrl as bacct")
+        .row
+            .col-sm-4
+                a.btn.btn-primary.btn-lg(href="javascript:void(0)", ng-click="bacct.showCreateForm()", data-toggle="modal", data-target="#business-account-registration") + Add Business Account
 
-    div(ng-controller="BAcctCtrl as bacct")
-        a(href="javascript:void(0)", ng-click="bacct.showCreateForm()") + Create Business Account
+        if accounts
+            .row
+                .col-sm-12
+                    table.table.table-striped.table-hover
+                        thead
+                            tr
+                                th Name
+                                th City
+                                th State
+                                th Country
+                                th Edit/Update
+                        tbody
+                            each val in accounts
+                                tr
+                                    td #{val.bname}
+                                    td #{val.baddress_city}
+                                    td #{val.baddress_state}
+                                    td #{val.baddress_country}
+                                    td
+                                        a.btn.btn-primary(href="javascript:void(0)", ng-click="bacct.editBA('#{val._id}')", data-toggle="modal", data-target="#business-account-modification") Edit
+        else
+            .row
+                .col-sm-4
+                    p No data available to show. Create a business account
+
+
+        div(ng-if="bacct.showEditAccount")
+            .container
+                if message
+                    p #{message}
+
+                form.form-signin(action="/baccounts/edit", method="post")
+
+                    .modal.fade.in(id="business-account-modification")
+                        .modal-dialog
+                            .modal-content
+
+                                .modal-header
+                                    button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+                                    h4.modal-title.col-sm-11 Business Account Update
+
+                                .modal-body
+                                    input(type='hidden', name='_csrf', value=csrfToken)
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="1", type="text", name="bname", placeholder="Business Name", ng-model="bacct.editAccountData.bname")
+
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="2", type="text", name="baddress_first", placeholder="Address # 1", ng-model="bacct.editAccountData.baddress_first")
+
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="3", type="text", name="baddress_second", placeholder="Address # 2", ng-model="bacct.editAccountData.baddress_second")
+
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="4", type="text", name="baddress_city", placeholder="City", ng-model="bacct.editAccountData.baddress_city")
+
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="5", type="text", name="baddress_state", placeholder="State", ng-model="bacct.editAccountData.baddress_state")
+
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="6", type="text", name="baddress_country", placeholder="Country", ng-model="bacct.editAccountData.baddress_country")
+
+                                    .form-group.col-sm-11.center.submit-button-gap
+                                        button.btn.btn-primary.btn-lg.btn-block(tabindex="7", type="submit") Update Business Account
+
+                                .modal-footer
+
+
+
 
         div(ng-if="bacct.showCreateBusinessForm")
             .container
                 if message
                     p #{message}
 
-                form.form-signin(action="/baccounts/create", method="post")
-                    h2.form-signin-heading Registration
-                    input(type='hidden', name='_csrf', value=csrfToken)
-                    div
-                        input.input-block-level(type="text", name="bname", placeholder="Business Name")
+                form.form-signin(action="/baccounts/create/", method="post")
 
-                    div
-                        input.input-block-level(type="text", name="baddress_first", placeholder="Address # 1")
+                    .modal.fade.in(id="business-account-registration")
+                        .modal-dialog
+                            .modal-content
 
-                    div
-                        input.input-block-level(type="text", name="baddress_second", placeholder="Address # 2")
+                                .modal-header
+                                    button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+                                    h4.modal-title.col-sm-11 Business Account Registration
 
-                    div
-                        input.input-block-level(type="text", name="baddress_city", placeholder="City")
+                                .modal-body
+                                    input(type='hidden', name='_csrf', value=csrfToken)
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="1", type="text", name="bname", placeholder="Business Name")
 
-                    div
-                        input.input-block-level(type="text", name="baddress_state", placeholder="State")
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="2", type="text", name="baddress_first", placeholder="Address # 1")
 
-                    div
-                        input.input-block-level(type="text", name="baddress_country", placeholder="Country")
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="3", type="text", name="baddress_second", placeholder="Address # 2")
 
-                    button.btn.btn-large.btn-primary(type="submit") Register
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="4", type="text", name="baddress_city", placeholder="City")
 
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="5", type="text", name="baddress_state", placeholder="State")
 
-        div()
+                                    .form-group.col-sm-11.center
+                                        input.form-control.input-block-level(tabindex="6", type="text", name="baddress_country", placeholder="Country")
+
+                                    .form-group.col-sm-11.center.submit-button-gap
+                                        button.btn.btn-primary.btn-lg.btn-block(tabindex="7", type="submit") Register
+
+                                .modal-footer
 
 block footer
 

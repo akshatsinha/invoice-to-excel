@@ -44,7 +44,7 @@ app.use('/baccounts', auth.requireLogin, baccountRoutes)
 app.use('/logout', logoutRoutes)
 
 // Go to the index page
-app.get('/', function(req, res) {
+app.get('/', auth.redirectToDashbaordIfLoggedIn, function(req, res) {
     res.render('index.jade');
 });
 

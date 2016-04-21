@@ -5,13 +5,12 @@ var ObjectId = Schema.ObjectId;
 var bAccountsSchema = new Schema({
     id: ObjectId,
     bname: { type: String, required: true },
-    baddress_first: { type: String, required: true },
-    baddress_second: { type: String, required: true },
-    baddress_city: { type: String, required: true },
-    baddress_state: { type: String, required: true },
-    baddress_country: { type: String, required: true },
-    blocations: { type: String, required: true },
-    badmin_id: { type: String, required: true }
+    baddress_first: { type: String, required: false },
+    baddress_second: { type: String, required: false },
+    baddress_city: { type: String, required: false },
+    baddress_state: { type: String, required: false },
+    baddress_country: { type: String, required: false },
+    badmin_id: { type: String, required: true },
     created_at: Date,
     updated_at: Date
 })
