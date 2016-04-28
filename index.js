@@ -31,6 +31,10 @@ app.use(session({
 }))
 
 app.use(csrf())
+app.use(function (req, res, next) {
+    res.cookie("XSRF-TOKEN",req.csrfToken());
+    return next();
+});
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());

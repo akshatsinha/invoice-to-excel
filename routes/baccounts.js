@@ -48,7 +48,7 @@ router.post('/create/', function(req, res) {
             console.log('Error in Saving BA: ' + err);
             throw err;
         }
-        console.log('Business Account Registration succesful: ' + newBA);
+        console.log('Business Account Registration succesful: ' + newBA)
         res.redirect('/baccounts/')
     });
 
@@ -60,6 +60,26 @@ router.get('/edit/:id', function(req, res) {
         if (err) throw err
         res.json(account)
     })
+})
+
+router.post('/edit/:_id', function(req, res) {
+    console.log('Add logic to update data in mongo: ', req.body)
+    BA.findOneAndUpdate({'_id': req.params.id}, {'bname': req.body.bname}, {upsert: true}, function(err, doc) {
+        if (err) {
+            console.log('Error in Updating BA: ' + err)
+            throw err;
+        }
+        console.log('Business Account Successfully Updated: ', req.body)
+        res.redirect('/baccounts/')
+    })
+})
+
+router.get('/template/edit', function(req, res) {
+    res.render('baccounts/edit.jade')
+})
+
+router.get('/template/create', function(req, res) {
+    res.render('baccounts/create.jade', { csrfToken: req.csrfToken()})
 })
 
 module.exports = router

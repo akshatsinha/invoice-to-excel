@@ -1,1 +1,1 @@
-angular.module('I2E', []);
+angular.module('I2E', ['ui.bootstrap', 'ngAnimate']);
