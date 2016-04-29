@@ -34,6 +34,7 @@ router.get('/', function(req, res) {
 
 });
 
+// Create
 router.post('/create/', function(req, res) {
     var newBA = new BA()
     newBA.bname = req.body.bname
@@ -54,6 +55,17 @@ router.post('/create/', function(req, res) {
 
 })
 
+// Fetch
+router.get('/get/:id', function(req, res) {
+    var id = req.params.id
+    BA.findOne({'_id': id}, function(err, account) {
+        if (err) throw err
+        res.json(account)
+    })
+})
+
+
+// Edit
 router.get('/edit/:id', function(req, res) {
     var id = req.params.id
     BA.findOne({'_id': id}, function(err, account) {
@@ -63,8 +75,7 @@ router.get('/edit/:id', function(req, res) {
 })
 
 router.post('/edit/:_id', function(req, res) {
-    console.log('Add logic to update data in mongo: ', req.body)
-    BA.findOneAndUpdate({'_id': req.params.id}, {'bname': req.body.bname}, {upsert: true}, function(err, doc) {
+    BA.findOneAndUpdate({'_id': req.body._id}, {$set: req.body}, function(err, doc) {
         if (err) {
             console.log('Error in Updating BA: ' + err)
             throw err;
@@ -74,12 +85,33 @@ router.post('/edit/:_id', function(req, res) {
     })
 })
 
+
+// Delete
+router.get('/delete/:id', function(req, res) {
+    BA.remove({'_id': req.params.id}, function(err, doc) {
+        if (err) {
+            console.log('Error in Deleting BA: ' + err)
+           throw err
+        }
+        console.log('Business Account Successfully Deleted: ', req.params.id)
+        res.redirect('/baccounts/')
+    })
+
+})
+
+
+
+// Templates used in BAaccounts
 router.get('/template/edit', function(req, res) {
     res.render('baccounts/edit.jade')
 })
 
 router.get('/template/create', function(req, res) {
     res.render('baccounts/create.jade', { csrfToken: req.csrfToken()})
+})
+
+router.get('/template/delete', function(req, res) {
+    res.render('baccounts/delete.jade')
 })
 
 module.exports = router

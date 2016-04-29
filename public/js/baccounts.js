@@ -25,6 +25,20 @@ app.controller('BAcctCtrl', function($scope, $http, $uibModal) {
             }
         });
     }
+
+    bacct.deleteBA = function(id) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '/baccounts/template/delete',
+            controller: 'DeleteBAcctCtrl',
+            controllerAs: 'dbacct',
+            resolve: {
+                id: function() {
+                    return id
+                }
+            }
+        });
+    }
 })
 
 
@@ -51,6 +65,27 @@ app.controller('CreateBAcctCtrl', function($scope, $uibModalInstance, $http, $wi
 
 
 
+app.controller('DeleteBAcctCtrl', function($scope, $uibModalInstance, $http, $window, id) {
+    var dbacct = this;
+    $http.get('/baccounts/get/' + id)
+    .then(function(response) {
+        dbacct.bname = response.data.bname
+    })
+
+    dbacct.delete = function() {
+        $http.get('/baccounts/delete/' + id)
+        .then(function(response) {
+            $window.location.reload();
+        })
+    }
+
+    dbacct.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+})
+
+
+
 app.controller('EditBAcctCtrl', function($scope, $uibModalInstance, $http, $window, id) {
     var ebacct = this;
     $http.get('/baccounts/edit/' + id)
@@ -59,7 +94,6 @@ app.controller('EditBAcctCtrl', function($scope, $uibModalInstance, $http, $wind
     })
 
     ebacct.submitEdit = function() {
-        console.log('submitted')
         var editAccountData = Object.keys(ebacct.editAccountData).reduce(function(a,k){a.push(k+'='+encodeURIComponent(ebacct.editAccountData[k]));return a},[]).join('&')
         $http({
             url: '/baccounts/edit/' + id,

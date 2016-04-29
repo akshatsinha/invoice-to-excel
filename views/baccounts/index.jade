@@ -16,6 +16,7 @@ block body
                 a.btn.btn-primary.btn-lg(href="javascript:void(0)", ng-click="bacct.showCreateForm()", data-toggle="modal", data-target="#business-account-registration") + Add Business Account
 
         if accounts
+            br
             .row
                 .col-sm-12
                     table.table.table-striped.table-hover
@@ -25,7 +26,8 @@ block body
                                 th City
                                 th State
                                 th Country
-                                th Edit/Update
+                                th &nbsp;
+                                th &nbsp;
                         tbody
                             each val in accounts
                                 tr
@@ -34,11 +36,15 @@ block body
                                     td #{val.baddress_state}
                                     td #{val.baddress_country}
                                     td
-                                        a.btn.btn-primary(href="javascript:void(0)", ng-click="bacct.editBA('#{val._id}')") Edit
+                                        a.btn.btn-warning.btn-sm(href="javascript:void(0)", ng-click="bacct.editBA('#{val._id}')") Modify
+                                    td
+                                        a.btn.btn-danger.btn-sm(href="javascript:void(0)", ng-click="bacct.deleteBA('#{val._id}')") Delete
         else
+            br
+            br
             .row
-                .col-sm-4
-                    p No data available to show. Create a business account
+                .col-sm-12
+                    p.lead No data available to show. Click on the button above to create a new business account
 
 
 block footer
