@@ -1,0 +1,12 @@
+.container(style="width: auto;")
+    .modal-header
+        button(type="button", class="close", ng-click="ddlr.cancel()") &times;
+        //- h4.modal-title.col-sm-11 Delete Dealer
+
+    .modal-body
+        p.lead.col-sm-12 Are you sure you want to delete <strong>{{ddlr.dname}}</strong>?
+        br
+
+    .modal-footer
+        button.btn.btn-default(ng-click="ddlr.cancel()") CANCEL
+        button.btn.btn-primary(ng-click="ddlr.delete()") DELETE

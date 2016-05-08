@@ -1,0 +1,52 @@
+extends ../base
+
+block vars
+    - var title = 'Dealers'
+
+block head
+    link(rel='stylesheet', href='/css/dealers.css')
+
+append header
+    mixin header('dealers')
+
+block body
+    .container(ng-controller="DealerCtrl as dlr")
+        .row
+            .col-sm-4
+                a.btn.btn-primary.btn-lg(href="javascript:void(0)", ng-click="dlr.showCreateForm()", data-toggle="modal", data-target="#dealer-registration") + Add Dealer
+
+        if dealers
+            br
+            .row
+                .col-sm-12
+                    table.table.table-striped.table-hover
+                        thead
+                            tr
+                                th Name
+                                th City
+                                th State
+                                th Country
+                                th &nbsp;
+                                th &nbsp;
+                        tbody
+                            each val in dealers
+                                tr
+                                    td #{val.dname}
+                                    td #{val.daddress_city}
+                                    td #{val.daddress_state}
+                                    td #{val.daddress_country}
+                                    td
+                                        a.btn.btn-warning.btn-sm(href="javascript:void(0)", ng-click="dlr.editDealer('#{val._id}')") Modify
+                                    td
+                                        a.btn.btn-danger.btn-sm(href="javascript:void(0)", ng-click="dlr.deleteDealer('#{val._id}')") Delete
+        else
+            br
+            br
+            .row
+                .col-sm-12
+                    p.lead No data available to show. Click on the button above to create a new dealer
+
+block footer
+
+append scripts
+    script(src="/js/dealers.js")

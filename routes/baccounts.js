@@ -20,7 +20,7 @@ var app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('[:date[iso]] :method :url :status'))
 
-// Go to the dashboard page
+// Go to the baccounts page
 // User will come here only after satisfying the requireLogin middleware
 router.get('/', function(req, res) {
     BA.find({'badmin_id': req.user._id}, function(err, accounts) {
@@ -28,8 +28,9 @@ router.get('/', function(req, res) {
         if (accounts.length === 0) {
             console.log('No business accounts exist yet for user: ', req.user._id)
             res.render('baccounts/index.jade', { csrfToken: req.csrfToken()})
+        } else {
+            res.render('baccounts/index.jade', { csrfToken: req.csrfToken(), accounts: accounts})
         }
-        res.render('baccounts/index.jade', { csrfToken: req.csrfToken(), accounts: accounts})
     })
 
 });
@@ -52,7 +53,6 @@ router.post('/create/', function(req, res) {
         console.log('Business Account Registration succesful: ' + newBA)
         res.redirect('/baccounts/')
     });
-
 })
 
 // Fetch
@@ -96,7 +96,6 @@ router.get('/delete/:id', function(req, res) {
         console.log('Business Account Successfully Deleted: ', req.params.id)
         res.redirect('/baccounts/')
     })
-
 })
 
 
