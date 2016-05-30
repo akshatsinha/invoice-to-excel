@@ -1,0 +1,37 @@
+extends ../base
+
+block vars
+    - var title = 'Invoices'
+
+block head
+    link(rel='stylesheet', href='/css/bills.css')
+
+append header
+    mixin header('invoices')
+
+block body
+    .container(ng-controller="BillsCtrl as bills")
+        .row
+            .col-sm-4
+                a.btn.btn-primary.btn-lg(href="javascript:void(0)", ng-click="bills.showCreateForm()") + Add Bills
+
+        .row
+            .col-sm-12
+                table.table.table-striped.table-hover
+                    thead
+                        tr
+                            th #
+                            th Column heading
+                            th Column heading
+                            th Column heading
+                    tbody
+                        tr
+                            td 1
+                            td 11
+                            td 111
+                            td 1111
+
+block footer
+
+append scripts
+    script(src="/js/bills.js")

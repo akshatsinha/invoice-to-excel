@@ -1,19 +1,19 @@
 extends ../base
 
 block vars
-    - var title = 'Dealers'
+    - var title = 'Vendors'
 
 block head
     link(rel='stylesheet', href='/css/dealers.css')
 
 append header
-    mixin header('dealers')
+    mixin header('vendoes')
 
 block body
     .container(ng-controller="DealerCtrl as dlr")
         .row
             .col-sm-4
-                a.btn.btn-primary.btn-lg(href="javascript:void(0)", ng-click="dlr.showCreateForm()", data-toggle="modal", data-target="#dealer-registration") + Add Dealer
+                a.btn.btn-primary.btn-lg(href="javascript:void(0)", ng-click="dlr.showCreateForm()", data-toggle="modal", data-target="#dealer-registration") + Add Vendor
 
         if dealers
             br

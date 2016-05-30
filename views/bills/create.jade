@@ -1,0 +1,39 @@
+.container(style="width: auto;")
+
+    form(ng-submit="cbill.submitCreate()")
+        .modal-header
+            button(type="button", class="close", ng-click="cbill.cancel()") &times;
+            h4.modal-title.col-sm-11 Add Bill
+
+        .modal-body
+            .fieldset
+                input(type='hidden', name='_csrf', value=csrfToken)
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="1", type="text", name="bill_number", placeholder="Bill Number", ng-model="cbill.createBillData.bill_number")
+
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="2", type="text", name="bill_date", placeholder="Bill Date", ng-model="cbill.createBillData.bill_date")
+
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="3", type="text", name="bill_location", placeholder="Business Account", ng-model="cbill.createBillData.bill_location")
+
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="4", type="text", name="bill_vendor_name", placeholder="Vendor Name", ng-model="cbill.createBillData.bill_vendor_name")
+
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="5", type="text", name="bill_description", placeholder="Description", ng-model="cbill.createBillData.bill_description")
+
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="6", type="text", name="bill_payment_recd_date", placeholder="Payment Rec'd Date", ng-model="cbill.createBillData.bill_payment_recd_date")
+
+                .form-group.col-sm-11.center
+                    input.form-control.input-block-level(tabindex="7", type="text", name="bill_amount", placeholder="Amount", ng-model="cbill.createBillData.bill_amount")
+
+
+
+        .modal-footer
+            .form-group.col-sm-11.center
+                .col-sm-6
+                    button.btn.btn-primary.btn-lg(tabindex="8", type="submit") Save & Close
+                .col-sm-5
+                    button.btn.btn-primary.btn-lg(tabindex="9", type="submit") Save & Add New

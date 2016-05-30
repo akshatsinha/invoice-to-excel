@@ -6,7 +6,7 @@ mixin header(active_tab)
 
             if user
                 ul.nav.navbar-nav.navbar-right
-                    each tab in ['dashboard', 'invoices', 'logout']
+                    each tab in ['dashboard', 'bills', 'logout']
                         if tab == active_tab
                             li.active
                                 a(href="/" + tab) #{tab.toUpperCase()}
